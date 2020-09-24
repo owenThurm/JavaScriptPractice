@@ -20,20 +20,34 @@ const copy = JSON.parse(JSON.stringify(musicRecords));
 
 function updateRecords(records, recordName, updateTag, updateInfo) {
 	if(updateInfo === "") delete records[recordName][updateTag];
+	if(updateTag == "tracks") {
+		records[recordName]["tracks"] = records[recordName]["tracks"] || [];
+		records[recordName]["tracks"].push(updateInfo);
+	}
 	else records[recordName][updateTag] = updateInfo;
 }
 
 function addTrack(records, recordName, track) {
+	if(track === "") delete records[recordName]["tracks"]
 	records[recordName]["tracks"] = records[recordName]["tracks"] || [];
 	records[recordName]["tracks"].push(track);
 }
 
+function addTracks(records, recordName, tracks) {
+	if(tracks === "") delete records[recordName]["tracks"];
+	records[recordName]["tracks"] = records[recordName]["tracks"] || [];
+	records[recordName]["tracks"] = records[recordName]["tracks"].concat(tracks);
+
+}
+
+var list = [];
+var newList = list.concat("hello", "hi");
 
 
+console.log(newList);
 
-addTrack(musicRecords, "Circles", "Hand Me Downs");
-addTrack(musicRecords, "Man On The Moon", "Scott Mescudi");
-addTrack(musicRecords, "Man On The Moon", "Don't Play This Song");
+
+addTracks(musicRecords, "Circles", ["Woods", "Thats On Me", "Blue World"]);
 
 console.log(JSON.stringify(musicRecords));
 
